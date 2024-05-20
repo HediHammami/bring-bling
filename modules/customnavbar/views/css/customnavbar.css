@@ -1,0 +1,47 @@
+.custom-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+}
+
+/* Logo */
+.navbar-logo img {
+    width: 100px; /* Adjust logo width as needed */
+}
+
+/* Categories */
+.navbar-categories ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-categories li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.navbar-categories a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Icons */
+.navbar-icons ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-icons li {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.navbar-icons a {
+    color: #fff;
+    text-decoration: none;
+}
