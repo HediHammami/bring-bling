@@ -15,11 +15,12 @@
  * @author    PrestaShop SA <contact@prestashop.com>
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
- *}
+ *}  
+ 
 {if $displayedFacets|count}
   <div id="search_filters">
     {block name='facets_title'}
-      <p class="text-uppercase h6 hidden-sm-down">{l s='Filter By' d='Shop.Theme.Actions'}</p>
+      {*<p class="text-uppercase h6 hidden-sm-down">{l s='Filter By' d='Shop.Theme.Actions'}</p>*}
     {/block}
 
     {block name='facets_clearall_button'}
@@ -35,7 +36,7 @@
 
     {foreach from=$displayedFacets item="facet"}
       <section class="facet clearfix" data-type="{$facet.type}">
-        <p class="h6 facet-title hidden-sm-down">{$facet.label}</p>
+       {*<p class="h6 facet-title hidden-sm-down">{$facet.label}</p>*}
         {assign var=_expand_id value=10|mt_rand:100000}
         {assign var=_collapse value=true}
         {foreach from=$facet.filters item="filter"}
@@ -123,7 +124,7 @@
                         {/if}
                       {/foreach}
                       {if !$active_found}
-                        {l s='(no filter)' d='Shop.Theme.Global'}
+                        {l s={$facet.label} d='Shop.Theme.Global'}
                       {/if}
                     </span>
                     <i class="material-icons float-xs-right">&#xE5C5;</i>
