@@ -24,13 +24,9 @@ class Banners extends Module
 
     public function install()
     {
-        if (
-            !parent::install() ||
-            !$this->registerHook('displayHome')
-        ) {
-            return false;
-        }
-        return true;
+        return parent::install() &&
+            $this->registerHook('displayHome') &&
+            $this->registerHook('displayFooterProduct');
     }
 
     public function uninstall()
@@ -43,7 +39,13 @@ class Banners extends Module
 
 
     public function hookDisplayHome($params)
-    {    
+    {
+        $this->context->controller->addCSS($this->_path . 'css/banners.css');
+        return $this->display(__FILE__, 'banners.tpl');
+    }
+
+    public function hookDisplayFooterProduct($params)
+    {
         $this->context->controller->addCSS($this->_path . 'css/banners.css');
         return $this->display(__FILE__, 'banners.tpl');
     }
