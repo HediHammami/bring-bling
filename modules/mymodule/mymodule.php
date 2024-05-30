@@ -12,7 +12,7 @@ class MyModule extends Module
         $this->name = 'mymodule';
         $this->tab = 'front_office_features';
         $this->version = '1.0.0';
-        $this->author = 'Firstname Lastname';
+        $this->author = 'Hedi@dev';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = [
             'min' => '1.7.0.0',
@@ -32,33 +32,27 @@ class MyModule extends Module
         }
     }
 
-    // public function hookDisplayHome($params)
-    // {
-    //     $clothesCategoryId = (int) Category::searchByName($this->context->language->id, 'Clothes');
 
-    //     $products = Product::getProducts($this->context->language->id, 0, 10, 'id_product', 'DESC', $clothesCategoryId);
+
+    public function hookDisplayHome()
+    {
+
+        
+        $this->context->controller->addCSS($this->_path . 'views/css/mymodule.css');
     
-    //     $this->context->smarty->assign('products', $products);
-    //     return $this->display(__FILE__, 'displayHome.tpl');
-    // }
+        $this->context->controller->addJS($this->_path . 'views/js/mymodule.js');
+
+        $rootCategoryId = Category::getRootCategory()->id;
+
+        $categories = Category::getChildren($rootCategoryId, $this->context->language->id);
 
 
 
+        $this->context->smarty->assign('categories', $categories);
 
-     public function hookDisplayHome()
-     {
 
-         $rootCategoryId = Category::getRootCategory()->id;
-
-         $categories = Category::getChildren($rootCategoryId, $this->context->language->id);
-
-        //  $products = Product::getProducts(1, 0, 10, 'id_product', 'DESC');
-
-         $this->context->smarty->assign('categories', $categories);
-        //  $this->context->smarty->assign('products', $products);
-
-         return $this->display(__FILE__, 'displayHome.tpl');
-     }
+        return $this->display(__FILE__, 'views/templates/hook/displayHome.tpl');
+    }
 
 
     public function install()
