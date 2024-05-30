@@ -11,5 +11,6 @@
     <div class="hero-content bottom-right">
         <h3 class="til">23/24</h3>
         <p class="desc">Latest Arrivals <br> Jacques Marie Mage</p>
+        <button class="hero-btn-2">SHOP NOW</button>
     </div>
 </section>
