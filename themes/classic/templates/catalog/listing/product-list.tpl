@@ -41,8 +41,11 @@
       {/if}
     {/block}
     
-    {hook h="displayHeaderCategory"}
-
+     {hook h="displayHeaderCategory"} 
+    
+        <!-- display filters under subcategory -->
+     {hook h="displayLeftColumn"} 
+     <!-- display filters under subcategory -->
     <section id="products">
       {if $listing.products|count}
 
@@ -57,7 +60,7 @@
         {/block}
 
         {block name='product_list'}
-          {include file='catalog/_partials/products.tpl' listing=$listing productClass="col-xs-12 col-sm-6 col-xl-4"}
+          {include file='catalog/_partials/products.tpl' listing=$listing productClass="col-6 col-sm-6 col-lg-4 col-xl-3"}
         {/block}
 
         {block name='product_list_bottom'}
@@ -78,11 +81,18 @@
 
         <div id="js-product-list-bottom"></div>
       {/if}
-    </section>
+    </section> 
+    
 
-    {block name='product_list_footer'}{/block}
 
+    {block name='product_list_footer'}{/block} 
+    
+
+
+    
+    {hook h="DisplayCustomCategoryHook"}
     {hook h="displayFooterCategory"}
+
 
   </section>
 {/block}

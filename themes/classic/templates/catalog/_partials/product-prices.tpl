@@ -24,14 +24,7 @@
  *}
 {if $product.show_price}
   <div class="product-prices js-product-prices">
-    {block name='product_discount'}
-      {if $product.has_discount}
-        <div class="product-discount">
-          {hook h='displayProductPriceBlock' product=$product type="old_price"}
-          <span class="regular-price">{$product.regular_price}</span>
-        </div>
-      {/if}
-    {/block}
+  
 
     {block name='product_price'}
       <div
@@ -46,6 +39,15 @@
               {$product.price}
             {/if}
           </span>
+
+         
+      {if $product.has_discount}
+        <div class="product-discount">
+          {hook h='displayProductPriceBlock' product=$product type="old_price"}
+          <span class="regular-price">{$product.regular_price}</span>
+        </div>
+      {/if}
+   
 
           {if $product.has_discount}
             {if $product.discount_type === 'percentage'}

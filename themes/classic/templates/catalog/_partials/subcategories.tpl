@@ -21,44 +21,42 @@
  * @author    PrestaShop SA and Contributors <contact@prestashop.com>
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
- *}
+ *} 
 {if !empty($subcategories)}
   {if (isset($display_subcategories) && $display_subcategories eq 1) || !isset($display_subcategories) }
-    <div id="subcategories" class="card card-block">
-      <h2 class="subcategory-heading">{l s='Subcategories' d='Shop.Theme.Category'}</h2>
+    <div id="subcategories">
+      {*<h2 class="subcategory-heading">{l s='Subcategories' d='Shop.Theme.Category'}</h2>*}
+<div id="subcategories-carousel" class="owl-carousel custom-carousel-theme">
+  {foreach from=$subcategories item=subcategory}
+    <div class="custom-carousel-item">
+      <div class="custom-subcategory-image">
+        <a href="{$subcategory.url}" title="{$subcategory.name|escape:'html':'UTF-8'}" class="img">
+          {if !empty($subcategory.image.large.url)}
+            <picture>
+              {if !empty($subcategory.image.large.sources.avif)}<source srcset="{$subcategory.image.large.sources.avif}" type="image/avif">{/if}
+              {if !empty($subcategory.image.large.sources.webp)}<source srcset="{$subcategory.image.large.sources.webp}" type="image/webp">{/if}
+              <img
+                class="custom-subcategory-img"
+                src="{$link->getCatImageLink($subcategory.name, $subcategory.id_category, null)}"
+                alt="{$subcategory.name|escape:'html':'UTF-8'}"
+                loading="lazy"
+               
+            </picture>
+          {/if}
+        </a>
+        <h5 class="custom-subcategory-title">
+          <a class="custom-subcategory-name" href="{$subcategory.url}">
+            {$subcategory.name|truncate:25:'...'|escape:'html':'UTF-8'}
+          </a>
+        </h5>
+      </div>
+    </div>
+  {/foreach}
+</div>
 
-      <ul class="subcategories-list">
-        {foreach from=$subcategories item=subcategory}
-          <li>
-            <div class="subcategory-image">
-              <a href="{$subcategory.url}" title="{$subcategory.name|escape:'html':'UTF-8'}" class="img">
-                {if !empty($subcategory.image.large.url)}
-                  <picture>
-                    {if !empty($subcategory.image.large.sources.avif)}<source srcset="{$subcategory.image.large.sources.avif}" type="image/avif">{/if}
-                    {if !empty($subcategory.image.large.sources.webp)}<source srcset="{$subcategory.image.large.sources.webp}" type="image/webp">{/if}
-                    <img
-                      class="img-fluid"
-                      src="{$subcategory.image.large.url}"
-                      alt="{$subcategory.name|escape:'html':'UTF-8'}"
-                      loading="lazy"
-                      width="{$subcategory.image.large.width}"
-                      height="{$subcategory.image.large.height}"/>
-                  </picture>
-                {/if}
-              </a>
-            </div>
 
-            <h5>
-              <a class="subcategory-name" href="{$subcategory.url}">
-                {$subcategory.name|truncate:25:'...'|escape:'html':'UTF-8'}
-              </a>
-            </h5>
-            {if $subcategory.description}
-              <div class="cat_desc">{$subcategory.description|unescape:'html' nofilter}</div>
-            {/if}
-          </li>
-        {/foreach}
-      </ul>
     </div>
   {/if}
 {/if}
+
+

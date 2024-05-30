@@ -97,7 +97,8 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
             null,
             null,
             $this->id_product_attribute
-        ));
+        )
+        );
     }
 
     /**
@@ -133,11 +134,13 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
         }
 
         // We are in a preview mode only if proper admin token was also provided in the URL
-        if ('1' === Tools::getValue('preview') && Tools::getValue('adtoken') == Tools::getAdminToken(
-            'AdminProducts'
-            . (int) Tab::getIdFromClassName('AdminProducts')
-            . (int) Tools::getValue('id_employee')
-        )) {
+        if (
+            '1' === Tools::getValue('preview') && Tools::getValue('adtoken') == Tools::getAdminToken(
+                'AdminProducts'
+                . (int) Tab::getIdFromClassName('AdminProducts')
+                . (int) Tools::getValue('id_employee')
+            )
+        ) {
             $this->setPreviewMode();
         }
 
@@ -277,8 +280,10 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
     public function initializeCategory()
     {
         $id_category = false;
-        if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == Tools::secureReferrer($_SERVER['HTTP_REFERER']) // Assure us the previous page was one of the shop
-            && preg_match('~^.*(?<!\/content)\/([0-9]+)\-(.*[^\.])|(.*)id_(category|product)=([0-9]+)(.*)$~', $_SERVER['HTTP_REFERER'], $regs)) {
+        if (
+            isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == Tools::secureReferrer($_SERVER['HTTP_REFERER']) // Assure us the previous page was one of the shop
+            && preg_match('~^.*(?<!\/content)\/([0-9]+)\-(.*[^\.])|(.*)id_(category|product)=([0-9]+)(.*)$~', $_SERVER['HTTP_REFERER'], $regs)
+        ) {
             // If the previous page was a category and is a parent category of the product use this category as parent category
             $id_object = false;
             if (isset($regs[1]) && is_numeric($regs[1])) {
@@ -312,7 +317,8 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
     public function initContent()
     {
         if (!$this->errors) {
-            if (Pack::isPack((int) $this->product->id)
+            if (
+                Pack::isPack((int) $this->product->id)
                 && !Pack::isInStock((int) $this->product->id, $this->product->minimal_quantity, $this->context->cart)
             ) {
                 $this->product->quantity = 0;
@@ -349,7 +355,8 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
 
             $this->context->smarty->assign([
                 'pictures' => $pictures,
-                'textFields' => $text_fields, ]);
+                'textFields' => $text_fields,
+            ]);
 
             $this->product->customization_required = false;
             $customization_fields = $this->product->customizable ? $this->product->getCustomizationFields($this->context->language->id) : false;
@@ -776,9 +783,9 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
                     }
                     $id_attributes = Db::getInstance()->executeS('SELECT pac2.`id_attribute` FROM `' . _DB_PREFIX_ . 'product_attribute_combination` pac2' .
                         ((!Product::isAvailableWhenOutOfStock($this->product->out_of_stock) && 0 == Configuration::get('PS_DISP_UNAVAILABLE_ATTR')) ?
-                        ' INNER JOIN `' . _DB_PREFIX_ . 'stock_available` pa ON pa.id_product_attribute = pac2.id_product_attribute
+                            ' INNER JOIN `' . _DB_PREFIX_ . 'stock_available` pa ON pa.id_product_attribute = pac2.id_product_attribute
                         WHERE pa.quantity > 0 AND ' :
-                        ' WHERE ') .
+                            ' WHERE ') .
                         'pac2.`id_product_attribute` IN (' . implode(',', array_map('intval', $id_product_attributes)) . ')
                         AND pac2.id_attribute NOT IN (' . implode(',', array_map('intval', $current_selected_attributes)) . ')');
                     foreach ($id_attributes as $k => $row) {
@@ -837,11 +844,29 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
             }
             unset($group);
 
+            $uniqueColorImages = [];
+            $combinationImages = $this->product->getCombinationImages($this->context->language->id);
+            foreach ($combinationImages as $id_product_attribute => $images) {
+                foreach ($images as $image) {
+                    foreach ($this->product->getAttributeCombinations($this->context->language->id) as $combination) {
+                        if ($combination['id_product_attribute'] == $id_product_attribute && $combination['group_name'] == 'Color') {
+                            $color_id = $combination['id_attribute'];
+                            if (!isset($uniqueColorImages[$color_id])) {
+                                $uniqueColorImages[$color_id] = $image['id_image'];
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
             $this->context->smarty->assign([
                 'groups' => $groups,
                 'colors' => (count($colors)) ? $colors : false,
                 'combinations' => $this->combinations,
                 'combinationImages' => $combination_images,
+                'uniqueColorImages' => $uniqueColorImages
             ]);
         } else {
             $this->context->smarty->assign([
@@ -849,6 +874,7 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
                 'colors' => false,
                 'combinations' => [],
                 'combinationImages' => [],
+                'uniqueColorImages' => []
             ]);
         }
     }
@@ -1154,6 +1180,8 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
 
         return $checkedIdProductAttribute;
     }
+
+
 
     /**
      * Return id_product_attribute by the group request parameter.

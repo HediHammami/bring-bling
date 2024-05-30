@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-05-17 14:31:44
+/* Smarty version 4.3.4, created on 2024-05-30 15:39:41
   from '/opt/lampp/htdocs/prestashop/modules/psxdesign/views/templates/hook/displayFontTags.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_66475c40a33e78_43643948',
+  'unifunc' => 'content_66588fad6912b8_11446264',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66475c40a33e78_43643948 (Smarty_Internal_Template $_smarty_tpl) {
+function content_66588fad6912b8_11446264 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

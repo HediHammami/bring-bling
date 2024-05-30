@@ -44,11 +44,22 @@
 
   <!--  product line body: label, discounts, price, attributes, customizations -->
   <div class="product-line-grid-body col-md-4 col-xs-8">
+
+    {*display brand name *}
+        {if Manufacturer::getNameById($product.id_manufacturer) !== ''}
+            <div class="product-brand-name-cart">
+             <h3>
+            {Manufacturer::getNameById($product.id_manufacturer)}
+            </h3>
+            </div>
+        {/if}
+
     <div class="product-line-info">
-      <a class="label" href="{$product.url}" data-id_customization="{$product.id_customization|intval}">{$product.name}</a>
+      <a class="label cart-prod-name" href="{$product.url}" data-id_customization="{$product.id_customization|intval}">{$product.name}</a>
     </div>
 
     <div class="product-line-info product-price h5 {if $product.has_discount}has-discount{/if}">
+      {*<div>
       {if $product.has_discount}
         <div class="product-discount">
           <span class="regular-price">{$product.regular_price}</span>
@@ -63,23 +74,56 @@
           {/if}
         </div>
       {/if}
-      <div class="current-price">
+      </div>*}
+      {*<div class="current-price">
+        <span class="price">{$product.price}</span>
+        {if $product.unit_price_full}
+          <div class="unit-price-cart">{$product.unit_price_full}</div>
+        {/if}
+      </div>*}
+      {hook h='displayProductPriceBlock' product=$product type="unit_price"}
+    </div>
+
+    <br/>
+     
+     <div class="att"> 
+    {foreach from=$product.attributes key="attribute" item="value"}
+      <div class="product-line-info {$attribute|lower}">
+        <span class="label lab">{$attribute}:</span>
+        <span class="value val">{$value}</span>
+      </div>
+    {/foreach}
+    </div> 
+      
+     <div class="qty-price"> 
+     <div class="cart-qty qty">
+            {if !empty($product.is_gift)}
+              <span class="gift-quantity">{$product.quantity}</span>
+            {else}
+              <input
+                class="js-cart-line-product-quantity"
+                data-down-url="{$product.down_quantity_url}"
+                data-up-url="{$product.up_quantity_url}"
+                data-update-url="{$product.update_quantity_url}"
+                data-product-id="{$product.id_product}"
+                type="number"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                value="{$product.quantity}"
+                name="product-quantity-spin"
+                aria-label="{l s='%productName% product quantity field' sprintf=['%productName%' => $product.name] d='Shop.Theme.Checkout'}"
+              />
+            {/if}
+      </div>
+           
+            <div class="current-price">
         <span class="price">{$product.price}</span>
         {if $product.unit_price_full}
           <div class="unit-price-cart">{$product.unit_price_full}</div>
         {/if}
       </div>
-      {hook h='displayProductPriceBlock' product=$product type="unit_price"}
-    </div>
 
-    <br/>
-
-    {foreach from=$product.attributes key="attribute" item="value"}
-      <div class="product-line-info {$attribute|lower}">
-        <span class="label">{$attribute}:</span>
-        <span class="value">{$value}</span>
       </div>
-    {/foreach}
 
     {if is_array($product.customizations) && $product.customizations|count}
       <br>
@@ -129,26 +173,9 @@
       <div class="col-xs-4 hidden-md-up"></div>
       <div class="col-md-10 col-xs-6">
         <div class="row">
-          <div class="col-md-6 col-xs-6 qty">
-            {if !empty($product.is_gift)}
-              <span class="gift-quantity">{$product.quantity}</span>
-            {else}
-              <input
-                class="js-cart-line-product-quantity"
-                data-down-url="{$product.down_quantity_url}"
-                data-up-url="{$product.up_quantity_url}"
-                data-update-url="{$product.update_quantity_url}"
-                data-product-id="{$product.id_product}"
-                type="number"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                value="{$product.quantity}"
-                name="product-quantity-spin"
-                aria-label="{l s='%productName% product quantity field' sprintf=['%productName%' => $product.name] d='Shop.Theme.Checkout'}"
-              />
-            {/if}
-          </div>
-          <div class="col-md-6 col-xs-2 price">
+         
+          {*remove product price from cart table*}
+          {*<div class="col-md-6 col-xs-2 price">
             <span class="product-price">
               <strong>
                 {if !empty($product.is_gift)}
@@ -158,7 +185,7 @@
                 {/if}
               </strong>
             </span>
-          </div>
+          </div>*}
         </div>
       </div>
       <div class="col-md-2 col-xs-2 text-xs-right">

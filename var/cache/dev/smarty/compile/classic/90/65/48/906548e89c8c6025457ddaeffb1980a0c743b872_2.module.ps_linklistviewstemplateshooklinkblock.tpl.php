@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-05-17 14:31:44
+/* Smarty version 4.3.4, created on 2024-05-30 15:39:41
   from 'module:ps_linklistviewstemplateshooklinkblock.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_66475c40ba9a74_23881965',
+  'unifunc' => 'content_66588fad920fc9_12716119',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '906548e89c8c6025457ddaeffb1980a0c743b872' => 
     array (
       0 => 'module:ps_linklistviewstemplateshooklinkblock.tpl',
-      1 => 1697815446,
+      1 => 1716982932,
       2 => 'module',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66475c40ba9a74_23881965 (Smarty_Internal_Template $_smarty_tpl) {
+function content_66588fad920fc9_12716119 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /opt/lampp/htdocs/prestashop/themes/classic/modules/ps_linklist/views/templates/hook/linkblock.tpl --><div class="col-md-6 links">
   <div class="row">
   <?php
@@ -45,6 +45,7 @@ $_smarty_tpl->tpl_vars['linkBlock']->do_else = false;
       </div>
       <ul id="footer_sub_menu_<?php echo htmlspecialchars((string) $_smarty_tpl->tpl_vars['linkBlock']->value['id'], ENT_QUOTES, 'UTF-8');?>
 " class="collapse">
+    
         <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['linkBlock']->value['links'], 'link');
 $_smarty_tpl->tpl_vars['link']->do_else = true;

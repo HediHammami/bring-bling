@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-05-17 14:31:44
+/* Smarty version 4.3.4, created on 2024-05-30 15:39:41
   from 'module:ps_languageselectorps_languageselector.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_66475c40ab2211_25764988',
+  'unifunc' => 'content_66588fad759900_99512216',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66475c40ab2211_25764988 (Smarty_Internal_Template $_smarty_tpl) {
+function content_66588fad759900_99512216 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /opt/lampp/htdocs/prestashop/themes/classic/modules/ps_languageselector/ps_languageselector.tpl --><div id="_desktop_language_selector">
   <div class="language-selector-wrapper">
     <span id="language-selector-label" class="hidden-md-up"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Language:','d'=>'Shop.Theme.Global'),$_smarty_tpl ) );?>

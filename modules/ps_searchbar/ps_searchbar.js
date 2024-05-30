@@ -63,3 +63,28 @@ $(document).ready(function () {
         $clearButton.toggle($searchBox.val() !== "" && isMobile());
     });
 });
+
+//custom search bar js 
+document.addEventListener('DOMContentLoaded', function() {
+    const searchIcon = document.getElementById('search_icon');
+    const searchOverlay = document.getElementById('search_overlay');
+    const clearIcon = document.querySelector('#search_overlay .clear');
+  
+    searchIcon.addEventListener('click', function() {
+      searchOverlay.style.display = 'flex';
+    });
+  
+    clearIcon.addEventListener('click', function() {
+      searchOverlay.style.display = 'none';
+    });
+  
+    // Optional: Close overlay if clicking outside of the form
+    searchOverlay.addEventListener('click', function(event) {
+      if (event.target === searchOverlay) {
+        searchOverlay.style.display = 'none';
+      }
+    });
+  });
+  
+  
+  

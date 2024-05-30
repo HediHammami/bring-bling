@@ -105,19 +105,71 @@ class WomenProducts extends Module
 
         $productData = array();
         foreach ($products as $product) {
-            $product_obj = new Product((int)$product['id_product'], false, Context::getContext()->language->id);
+            $product_obj = new Product((int) $product['id_product'], false, Context::getContext()->language->id);
             $image_type = 'medium_default';
             $img = $product_obj->getCover($product_obj->id);
-            $img_url = $this->context->link->getImageLink(isset($product_obj->link_rewrite) ? $product_obj->link_rewrite : $product_obj->name, (int)$img['id_image'], $image_type);
+            $img_url = $this->context->link->getImageLink(isset($product_obj->link_rewrite) ? $product_obj->link_rewrite : $product_obj->name, (int) $img['id_image'], $image_type);
 
             $manufacturer = new Manufacturer($product_obj->id_manufacturer, Context::getContext()->language->id);
 
+            $discountedPrice = $product_obj->getPriceStatic(
+                (int) $product['id_product'],
+                false,
+                null,
+                6, // Set the number of decimals
+                null,
+                false,
+                true // Use the tax calculation
+            );
+
+
+
+
+
+
+
+            // Calculate the discount percentage
+            $discount_percentage = 0;
+            $specific_prices = SpecificPrice::getByProductId((int) $product['id_product']);
+            if ($specific_prices) {
+                foreach ($specific_prices as $specific_price) {
+                    if ($specific_price['reduction_type'] == 'percentage') {
+                        $discount_percentage = round($specific_price['reduction'] * 100);
+                    } elseif ($specific_price['reduction_type'] == 'amount') {
+                        $original_price = $product_obj->getPriceStatic(
+                            (int) $product['id_product'],
+                            false,
+                            null,
+                            6, // Set the number of decimals
+                            null,
+                            false,
+                            true // Use the tax calculation
+                        );
+                        $discounted_price = $original_price - $specific_price['reduction'];
+                        if ($original_price > $discounted_price) {
+                            $discount_percentage = round((($original_price - $discounted_price) / $original_price) * 100);
+                        }
+                    }
+                }
+            }
+
+            $price_formatted = Tools::displayPrice($product_obj->price, $this->context->currency);
+            $discounted_price_formatted = Tools::displayPrice($discountedPrice, $this->context->currency);
+        
+            // Concatenate currency symbol after the price
+            $price_formatted_with_currency = $price_formatted;
+            $discounted_price_formatted_with_currency = $discounted_price_formatted;
+
             $productData[] = array(
                 'name' => $product_obj->name,
-                'price' => $product_obj->price,
+                'price' => $price_formatted_with_currency,
                 'image_url' => $img_url,
                 'link' => $this->context->link->getProductLink($product_obj),
                 'manufacturer_name' => $manufacturer->name,
+                'discount_percentage' => $discount_percentage,
+                'has_discount' => $discount_percentage > 0,
+                'discountedPrice' => $discounted_price_formatted_with_currency,
+
             );
         }
 

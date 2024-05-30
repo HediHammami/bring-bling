@@ -37,6 +37,7 @@
         </span>
       </div>
       <ul id="footer_sub_menu_{$linkBlock.id}" class="collapse">
+    
         {foreach $linkBlock.links as $link}
           <li>
             <a

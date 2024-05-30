@@ -296,8 +296,13 @@ class CategoryCore extends ObjectModel
      *
      * @return array Subcategories lite tree
      */
+
+       
+     
+
+
     public function recurseLiteCategTree($maxDepth = 3, $currentDepth = 0, $idLang = null, $excludedIdsArray = null, $format = 'default')
-    {
+    {   
         $idLang = null === $idLang ? Context::getContext()->language->id : (int) $idLang;
 
         $children = [];
@@ -499,7 +504,8 @@ class CategoryCore extends ObjectModel
             // update by batch of 5000 categories
             $chunks = array_chunk($queries, 5000);
             foreach ($chunks as $chunk) {
-                $sqlChunk = array_map(function ($value) { return '(' . rtrim(implode(',', $value)) . ')'; }, $chunk);
+                $sqlChunk = array_map(function ($value) {
+                    return '(' . rtrim(implode(',', $value)) . ')'; }, $chunk);
                 Db::getInstance()->execute('INSERT INTO `' . _DB_PREFIX_ . 'category` (id_category, nleft, nright)
                 VALUES ' . rtrim(implode(',', $sqlChunk), ',') . '
                 ON DUPLICATE KEY UPDATE nleft=VALUES(nleft), nright=VALUES(nright)');
@@ -771,15 +777,15 @@ class CategoryCore extends ObjectModel
         }
 
         $cacheId = 'Category::getNestedCategories_' . md5(
-                (int) $idRootCategory .
-                (int) $idLang .
-                (int) $active .
-                (int) $useShopRestriction .
-                (isset($groups) && Group::isFeatureActive() ? implode('', $groups) : '') .
-                $sqlFilter .
-                $orderBy .
-                $limit
-            );
+            (int) $idRootCategory .
+            (int) $idLang .
+            (int) $active .
+            (int) $useShopRestriction .
+            (isset($groups) && Group::isFeatureActive() ? implode('', $groups) : '') .
+            $sqlFilter .
+            $orderBy .
+            $limit
+        );
 
         if (!Cache::isStored($cacheId)) {
             $result = Db::getInstance()->executeS(
@@ -856,9 +862,11 @@ class CategoryCore extends ObjectModel
     public static function getSimpleCategoriesWithParentInfos($idLang)
     {
         $context = Context::getContext();
-        if (count(Category::getCategoriesWithoutParent()) > 1
+        if (
+            count(Category::getCategoriesWithoutParent()) > 1
             && Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE')
-            && count(Shop::getShops(true, null, true)) !== 1) {
+            && count(Shop::getShops(true, null, true)) !== 1
+        ) {
             $idCategoryRoot = (int) Configuration::get('PS_ROOT_CATEGORY');
         } elseif (!$context->shop->id) {
             $idCategoryRoot = (new Shop((int) Configuration::get('PS_SHOP_DEFAULT')))->id_category;
@@ -1030,7 +1038,7 @@ class CategoryCore extends ObjectModel
 				LEFT JOIN `' . _DB_PREFIX_ . 'product` p
 					ON p.`id_product` = cp.`id_product`
 				' . Shop::addSqlAssociation('product', 'p') .
-                (Combination::isFeatureActive() ? ' LEFT JOIN `' . _DB_PREFIX_ . 'product_attribute_shop` product_attribute_shop
+            (Combination::isFeatureActive() ? ' LEFT JOIN `' . _DB_PREFIX_ . 'product_attribute_shop` product_attribute_shop
 				ON (p.`id_product` = product_attribute_shop.`id_product` AND product_attribute_shop.`default_on` = 1 AND product_attribute_shop.id_shop=' . (int) $context->shop->id . ')' : '') . '
 				' . Product::sqlStock('p', 0) . '
 				LEFT JOIN `' . _DB_PREFIX_ . 'category_lang` cl
@@ -1048,9 +1056,9 @@ class CategoryCore extends ObjectModel
 					ON m.`id_manufacturer` = p.`id_manufacturer`
 				WHERE product_shop.`id_shop` = ' . (int) $context->shop->id . '
 					AND cp.`id_category` = ' . (int) $this->id
-                    . ($active ? ' AND product_shop.`active` = 1' : '')
-                    . ($front ? ' AND product_shop.`visibility` IN ("both", "catalog")' : '')
-                    . ($idSupplier ? ' AND p.id_supplier = ' . (int) $idSupplier : '');
+            . ($active ? ' AND product_shop.`active` = 1' : '')
+            . ($front ? ' AND product_shop.`visibility` IN ("both", "catalog")' : '')
+            . ($idSupplier ? ' AND p.id_supplier = ' . (int) $idSupplier : '');
 
         if ($random === true) {
             $sql .= ' ORDER BY RAND() LIMIT ' . (int) $randomNumberProducts;
@@ -1300,7 +1308,10 @@ class CategoryCore extends ObjectModel
         $row = [];
         if ($result) {
             foreach ($result as $i) {
-                $row[] = '(' . implode(', ', [(int) $idNew, $i['id_category'], '(SELECT tmp.max + 1 FROM (
+                $row[] = '(' . implode(', ', [
+                    (int) $idNew,
+                    $i['id_category'],
+                    '(SELECT tmp.max + 1 FROM (
 					SELECT MAX(cp.`position`) AS max
 					FROM `' . _DB_PREFIX_ . 'category_product` cp
 					WHERE cp.`id_category`=' . (int) $i['id_category'] . ') AS tmp)',
@@ -1572,10 +1583,12 @@ class CategoryCore extends ObjectModel
             $sqlAppend .= ' AND cs.`id_shop` = ' . (int) $context->shop->id;
         }
         $rootCategory = Category::getRootCategory();
-        if (Shop::isFeatureActive() && Shop::getContext() === Shop::CONTEXT_SHOP
+        if (
+            Shop::isFeatureActive() && Shop::getContext() === Shop::CONTEXT_SHOP
             && (!Tools::isSubmit('id_category')
                 || (int) Tools::getValue('id_category') == (int) $rootCategory->id
-                || (int) $rootCategory->id == (int) $context->shop->id_category)) {
+                || (int) $rootCategory->id == (int) $context->shop->id_category)
+        ) {
             $sqlAppend .= ' AND c.`id_parent` != 0';
         }
 
@@ -1815,13 +1828,14 @@ class CategoryCore extends ObjectModel
      */
     public function updatePosition($way, $position)
     {
-        if (!$res = Db::getInstance()->executeS('
+        if (
+            !$res = Db::getInstance()->executeS('
             SELECT cp.`id_category`, category_shop.`position`, cp.`id_parent`
             FROM `' . _DB_PREFIX_ . 'category` cp
             ' . Shop::addSqlAssociation('category', 'cp') . '
             WHERE cp.`id_parent` = ' . (int) $this->id_parent . '
             ORDER BY category_shop.`position` ASC')
-            ) {
+        ) {
             return false;
         }
 
@@ -1849,8 +1863,9 @@ class CategoryCore extends ObjectModel
             ($way
                 ? '> ' . (int) $movedCategory['position'] . ' AND category_shop.`position` <= ' . (int) $position
                 : '< ' . (int) $movedCategory['position'] . ' AND category_shop.`position` >= ' . (int) $position) . ' ' .
-            'AND c.`id_parent`=' . (int) $movedCategory['id_parent'])
-        && Db::getInstance()->execute('
+            'AND c.`id_parent`=' . (int) $movedCategory['id_parent']
+        )
+            && Db::getInstance()->execute('
             UPDATE `' . _DB_PREFIX_ . 'category` c ' . Shop::addSqlAssociation('category', 'c') . '
             SET c.`position` = ' . (int) $position . ',
             category_shop.`position` = ' . (int) $position . ',

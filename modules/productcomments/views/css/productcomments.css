@@ -563,7 +563,8 @@
   .thumbnail-container.has-reviews
   .product-flags
   .new.online-only {
-  top: 11.5rem;
+  top: 11.5rem; 
+  display: none;
 }
 
 .product-list-reviews {

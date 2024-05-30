@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-05-17 14:31:44
+/* Smarty version 4.3.4, created on 2024-05-30 15:39:41
   from 'module:ps_emailsubscriptionviewstemplateshookps_emailsubscription.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_66475c40b68bd7_08152698',
+  'unifunc' => 'content_66588fad8a1c36_89449527',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66475c40b68bd7_08152698 (Smarty_Internal_Template $_smarty_tpl) {
+function content_66588fad8a1c36_89449527 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /opt/lampp/htdocs/prestashop/themes/classic/modules/ps_emailsubscription/views/templates/hook/ps_emailsubscription.tpl -->
 <div class="block_newsletter col-lg-8 col-md-12 col-sm-12" id="blockEmailSubscription_<?php echo htmlspecialchars((string) $_smarty_tpl->tpl_vars['hookName']->value, ENT_QUOTES, 'UTF-8');?>
 ">

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-05-17 14:31:59
+/* Smarty version 4.3.4, created on 2024-05-30 15:39:41
   from '/opt/lampp/htdocs/prestashop/modules/herosection/herosection.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_66475c4f4780d5_03673703',
+  'unifunc' => 'content_66588fad4fc7d1_42983654',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b03247c9301dbc1b772e14227afd7b5a20df8943' => 
     array (
       0 => '/opt/lampp/htdocs/prestashop/modules/herosection/herosection.tpl',
-      1 => 1715869762,
+      1 => 1716290934,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66475c4f4780d5_03673703 (Smarty_Internal_Template $_smarty_tpl) {
+function content_66588fad4fc7d1_42983654 (Smarty_Internal_Template $_smarty_tpl) {
 ?><link rel="stylesheet" href="<?php echo htmlspecialchars((string) $_smarty_tpl->tpl_vars['module_dir']->value, ENT_QUOTES, 'UTF-8');?>
 css/herosection.css" type="text/css" />
 
@@ -36,6 +36,7 @@ images/hero-section.png" alt="Hero Image" />
     <div class="hero-content bottom-right">
         <h3 class="til">23/24</h3>
         <p class="desc">Latest Arrivals <br> Jacques Marie Mage</p>
+        <button class="hero-btn-2">SHOP NOW</button>
     </div>
 </section>
 <?php }

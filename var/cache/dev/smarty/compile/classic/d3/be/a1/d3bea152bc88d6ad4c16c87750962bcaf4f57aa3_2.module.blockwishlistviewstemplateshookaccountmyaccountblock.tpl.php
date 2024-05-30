@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-05-17 14:31:44
+/* Smarty version 4.3.4, created on 2024-05-30 15:39:41
   from 'module:blockwishlistviewstemplateshookaccountmyaccountblock.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_66475c40bc9478_61529026',
+  'unifunc' => 'content_66588fad95b9e9_75007631',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66475c40bc9478_61529026 (Smarty_Internal_Template $_smarty_tpl) {
+function content_66588fad95b9e9_75007631 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /opt/lampp/htdocs/prestashop/modules/blockwishlist/views/templates/hook/account/myaccount-block.tpl -->
 <?php if ($_smarty_tpl->tpl_vars['customer']->value['is_logged']) {?>
   <li>

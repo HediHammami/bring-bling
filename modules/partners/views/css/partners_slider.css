@@ -1,0 +1,32 @@
+#partner-logos-container {
+ margin-top: 80px;
+    padding-left: 35px;
+ padding-right: 35px;
+}
+
+#partner-logos-container > h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 30px;
+  text-transform: uppercase;
+}
+
+#partner-logos .logo-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#partner-logos .logo-item img {
+    width: 60px;
+    height: 60px;
+    
+}
+@media only screen and (max-width: 600px) {
+  #partner-logos-container {
+    padding-left: 0;
+ padding-right: 0;
+  }
+}

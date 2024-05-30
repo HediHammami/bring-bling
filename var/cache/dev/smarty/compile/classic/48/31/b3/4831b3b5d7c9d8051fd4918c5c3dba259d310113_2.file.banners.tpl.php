@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.4, created on 2024-05-17 16:36:00
+/* Smarty version 4.3.4, created on 2024-05-30 15:39:41
   from '/opt/lampp/htdocs/prestashop/modules/banners/banners.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_664779605679d5_84110385',
+  'unifunc' => 'content_66588fad584e54_06884917',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_664779605679d5_84110385 (Smarty_Internal_Template $_smarty_tpl) {
+function content_66588fad584e54_06884917 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="banner-container">
   <div class="banner" style="background-image: url('<?php echo htmlspecialchars((string) $_smarty_tpl->tpl_vars['module_dir']->value, ENT_QUOTES, 'UTF-8');?>
 images/banner2.png');">

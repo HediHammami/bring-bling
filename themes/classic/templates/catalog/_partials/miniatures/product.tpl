@@ -22,7 +22,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  *}
-{block name='product_miniature_item'}
+{block name='product_miniature_item'} 
 <div class="js-product product{if !empty($productClasses)} {$productClasses}{/if}">
   <article class="product-miniature js-product-miniature" data-id-product="{$product.id_product}" data-id-product-attribute="{$product.id_product_attribute}">
     <div class="thumbnail-container">
@@ -34,12 +34,13 @@
                 {if !empty($product.cover.bySize.home_default.sources.avif)}<source srcset="{$product.cover.bySize.home_default.sources.avif}" type="image/avif">{/if}
                 {if !empty($product.cover.bySize.home_default.sources.webp)}<source srcset="{$product.cover.bySize.home_default.sources.webp}" type="image/webp">{/if}
                 <img
-                  src="{$product.cover.bySize.home_default.url}"
+                  src="{$product.cover.large.url}"
                   alt="{if !empty($product.cover.legend)}{$product.cover.legend}{else}{$product.name|truncate:30:'...'}{/if}"
                   loading="lazy"
                   data-full-size-image-url="{$product.cover.large.url}"
-                  width="{$product.cover.bySize.home_default.width}"
-                  height="{$product.cover.bySize.home_default.height}"
+                  width="420"
+                  height="540"
+                  class="thumb-img"
                 />
               </picture>
             </a>
@@ -62,17 +63,30 @@
         <div class="highlighted-informations{if !$product.main_variants} no-variants{/if}">
           {block name='quick_view'}
             <a class="quick-view js-quick-view" href="#" data-link-action="quickview">
-              <i class="material-icons search">&#xE8B6;</i> {l s='Quick view' d='Shop.Theme.Actions'}
+              {*<i class="material-icons search">&#xE8B6;</i> *} {l s='view product' d='Shop.Theme.Actions'}
             </a>
           {/block}
 
           {block name='product_variants'}
-            {if $product.main_variants}
+            {*{if $product.main_variants}
               {include file='catalog/_partials/variant-links.tpl' variants=$product.main_variants}
-            {/if}
+            {/if}*}
           {/block}
         </div>
-      </div>
+        {if $product.has_discount}
+            <div class="discount-badge-cat">{$product.discount_percentage}</div>
+        {/if}
+      </div> 
+
+      {* get brand name*}
+          {block name='product_brand'}
+        {if Manufacturer::getNameById($product.id_manufacturer) !== ''}
+            <div class="product-brand-name">
+             <a href="{$product.url}">{Manufacturer::getNameById($product.id_manufacturer)}</a>
+             </div>
+             {/if}
+    {/block}
+     
 
       <div class="product-description">
         {block name='product_name'}

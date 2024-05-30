@@ -34,6 +34,7 @@ use PrestaShop\PrestaShop\Core\Security\PasswordPolicyConfiguration;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\IpUtils;
 
+
 class FrontControllerCore extends Controller
 {
     /** @var array Controller warning notifications */
@@ -395,9 +396,9 @@ class FrontControllerCore extends Controller
                 unset($this->context->cookie->id_cart, $cart, $this->context->cookie->checkedTOS);
                 $this->context->cookie->check_cgv = false;
 
-            /*
-             * If geolocation is enabled and we are not allowed to order from our country, we will delete the cart.
-             */
+                /*
+                 * If geolocation is enabled and we are not allowed to order from our country, we will delete the cart.
+                 */
             } elseif (
                 (int) (Configuration::get('PS_GEOLOCATION_ENABLED'))
                 && !in_array(strtoupper($this->context->cookie->iso_code_country), explode(';', Configuration::get('PS_ALLOWED_COUNTRIES')))
@@ -410,10 +411,10 @@ class FrontControllerCore extends Controller
                 PrestaShopLogger::addLog('Frontcontroller::init - GEOLOCATION is deleting a cart', 1, null, 'Cart', (int) $this->context->cookie->id_cart, true);
                 unset($this->context->cookie->id_cart, $cart);
 
-            /*
-             * Check if cart data is still matching to what is set in our cookie - currency, language and customer.
-             * If not, update it on the cart.
-             */
+                /*
+                 * Check if cart data is still matching to what is set in our cookie - currency, language and customer.
+                 * If not, update it on the cart.
+                 */
             } elseif (
                 $this->context->cookie->id_customer != $cart->id_customer
                 || $this->context->cookie->id_lang != $cart->id_lang
@@ -958,7 +959,20 @@ class FrontControllerCore extends Controller
      * @return bool
      */
     public function setMedia()
-    {
+    {    
+        
+        if ($this->context->controller instanceof CategoryController) {
+            // Register CSS files
+            $this->registerStylesheet('owl-carousel-css', 'themes/classic/assets/css/owl.carousel.min.css', ['media' => 'all', 'priority' => 1000]);
+            // $this->registerStylesheet('owl-theme-css', 'themes/classic/assets/css/owl.theme.default.min.css', ['media' => 'all', 'priority' => 1000]);
+            $this->registerStylesheet('custom-css', 'themes/classic/assets/css/custom.css', ['media' => 'all', 'priority' => 1000]);
+    
+            // Register JS files
+            $this->registerJavascript('owl-carousel-js', 'themes/classic/assets/js/owl.carousel.min.js', ['position' => 'bottom', 'priority' => 1000]);
+            $this->registerJavascript('custom-js', 'themes/classic/assets/js/subcat_carousel.js', ['position' => 'bottom', 'priority' => 1000]);
+        }
+
+
         $this->registerStylesheet('theme-main', '/assets/css/theme.css', ['media' => 'all', 'priority' => 50]);
         $this->registerStylesheet('theme-custom', '/assets/css/custom.css', ['media' => 'all', 'priority' => 1000]);
 
@@ -1404,16 +1418,18 @@ class FrontControllerCore extends Controller
         $content_only = (int) Tools::getValue('content_only');
 
         // If a module provides its own custom layout, we ignore what is set in configuration
-        if ($overridden_layout = Hook::exec(
-            'overrideLayoutTemplate',
-            [
-                'default_layout' => $layout,
-                'entity' => $entity,
-                'locale' => $this->context->language->locale,
-                'controller' => $this,
-                'content_only' => $content_only,
-            ]
-        )) {
+        if (
+            $overridden_layout = Hook::exec(
+                'overrideLayoutTemplate',
+                [
+                    'default_layout' => $layout,
+                    'entity' => $entity,
+                    'locale' => $this->context->language->locale,
+                    'controller' => $this,
+                    'content_only' => $content_only,
+                ]
+            )
+        ) {
             return $overridden_layout;
         }
 
@@ -1460,16 +1476,18 @@ class FrontControllerCore extends Controller
             $locale = $this->context->language->locale;
         }
 
-        if ($overridden_template = Hook::exec(
-            'displayOverrideTemplate',
-            [
-                'controller' => $this,
-                'template_file' => $template,
-                'entity' => $params['entity'],
-                'id' => $params['id'],
-                'locale' => $locale,
-            ]
-        )) {
+        if (
+            $overridden_template = Hook::exec(
+                'displayOverrideTemplate',
+                [
+                    'controller' => $this,
+                    'template_file' => $template,
+                    'entity' => $params['entity'],
+                    'id' => $params['id'],
+                    'locale' => $locale,
+                ]
+            )
+        ) {
             return $overridden_template;
         }
 
@@ -1584,11 +1602,39 @@ class FrontControllerCore extends Controller
 
             $pages = [];
             $p = [
-                'address', 'addresses', 'authentication', 'manufacturer', 'cart', 'category', 'cms', 'contact',
-                'discount', 'guest-tracking', 'history', 'identity', 'index', 'my-account',
-                'order-confirmation', 'order-detail', 'order-follow', 'order', 'order-return',
-                'order-slip', 'pagenotfound', 'password', 'pdf-invoice', 'pdf-order-return', 'pdf-order-slip',
-                'prices-drop', 'product', 'registration', 'search', 'sitemap', 'stores', 'supplier', 'new-products',
+                'address',
+                'addresses',
+                'authentication',
+                'manufacturer',
+                'cart',
+                'category',
+                'cms',
+                'contact',
+                'discount',
+                'guest-tracking',
+                'history',
+                'identity',
+                'index',
+                'my-account',
+                'order-confirmation',
+                'order-detail',
+                'order-follow',
+                'order',
+                'order-return',
+                'order-slip',
+                'pagenotfound',
+                'password',
+                'pdf-invoice',
+                'pdf-order-return',
+                'pdf-order-slip',
+                'prices-drop',
+                'product',
+                'registration',
+                'search',
+                'sitemap',
+                'stores',
+                'supplier',
+                'new-products',
             ];
             foreach ($p as $page_name) {
                 $index = str_replace('-', '_', $page_name);

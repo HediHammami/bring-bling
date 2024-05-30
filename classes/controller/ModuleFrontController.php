@@ -55,6 +55,9 @@ class ModuleFrontControllerCore extends FrontController
      *
      * @throws PrestaShopException
      */
+
+
+
     public function setTemplate($template, $params = [], $locale = null)
     {
         if (strpos($template, 'module:') === 0) {

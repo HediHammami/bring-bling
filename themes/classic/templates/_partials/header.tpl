@@ -32,14 +32,11 @@
   <nav class="header-nav">
     <div class="container">
       <div class="row">
-        <div class="cc">
-         <div class="">
-            {hook h='displayCustomHook'}
-          </div>
-          <div class="">
+        <div class="hidden-sm-down">
+          <div class="col-md-5 col-xs-12">
             {hook h='displayNav1'}
           </div>
-          <div class="">
+          <div class="col-md-7 right-nav">
               {hook h='displayNav2'}
           </div>
         </div>
@@ -72,7 +69,7 @@
             {/if}
           {/if}
         </div>
-        <div class="tt">
+        <div class="header-top-right col-md-10 col-sm-12 position-static">
           {hook h='displayTop'}
         </div>
       </div>
@@ -88,3 +85,7 @@
   </div>
   {hook h='displayNavFullWidth'}
 {/block}
+
+
+
+

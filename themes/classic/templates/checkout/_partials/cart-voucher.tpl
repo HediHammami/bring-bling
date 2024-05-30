@@ -56,8 +56,8 @@
               <form action="{$urls.pages.cart}" data-link-action="add-voucher" method="post">
                 <input type="hidden" name="token" value="{$static_token}">
                 <input type="hidden" name="addDiscount" value="1">
-                <input class="promo-input" type="text" name="discount_name" placeholder="{l s='Promo code' d='Shop.Theme.Checkout'}">
-                <button type="submit" class="btn btn-primary"><span>{l s='Add' d='Shop.Theme.Actions'}</span></button>
+                <input class="promo-input" type="text" name="discount_name" placeholder="{l s='Enter coupon' d='Shop.Theme.Checkout'}">
+                <button type="submit" class="btn btn-primary"><span>{l s='Apply' d='Shop.Theme.Actions'}</span></button>
               </form>
             {/block}
 

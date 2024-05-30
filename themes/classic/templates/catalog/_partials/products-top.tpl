@@ -22,6 +22,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  *}
+<!-- Existing HTML structure -->
 <div id="js-product-list-top" class="row products-selection">
   <div class="col-lg-5 hidden-sm-down total-products">
     {if $listing.pagination.total_items > 1}
@@ -52,3 +53,39 @@
     ]}
   </div>
 </div>
+
+<!-- Sticky footer for mobile -->
+<div id="sticky-footer" class="hidden-md-up">
+  <div class="row">
+    <div class="col-xs-8">
+      {block name='sort_by'}
+        {include file='catalog/_partials/sort-orders.tpl' sort_orders=$listing.sort_orders}
+      {/block}
+    </div>
+     
+     <div class="vertical-divider"></div>
+
+    <div class="col-xs-4 filter-button">
+      <button id="search_filter_toggler" class="btn btn-secondary js-search-toggler">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_53_2607)">
+<path d="M17.25 7.5H20.25" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3.75 7.5H14.25" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.25 16.5H20.25" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3.75 16.5H8.25" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.25 5.25V9.75" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.25 14.25V18.75" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_53_2607">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
+        {l s='Filter' d='Shop.Theme.Actions'}
+      </button>
+    </div>
+  </div>
+</div>
+

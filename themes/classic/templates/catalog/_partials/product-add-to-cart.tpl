@@ -24,11 +24,11 @@
  *}
 <div class="product-add-to-cart js-product-add-to-cart">
   {if !$configuration.is_catalog}
-    <span class="control-label">{l s='Quantity' d='Shop.Theme.Catalog'}</span>
+    <span class="control-label">{l s='' d='Shop.Theme.Catalog'}</span> {*quantity*}
 
     {block name='product_quantity'}
-      <div class="product-quantity clearfix">
-        <div class="qty">
+      <div class="product-quantityy">
+        {*<div class="qty">
           <input
             type="number"
             name="qty"
@@ -45,19 +45,19 @@
             class="input-group"
             aria-label="{l s='Quantity' d='Shop.Theme.Actions'}"
           >
-        </div>
+        </div>*}
 
-        <div class="add">
+        <div class="addd">
           <button
-            class="btn btn-primary add-to-cart"
+            class="btn btn-primary add-to-cart add-to-cart-prod"
             data-button-action="add-to-cart"
             type="submit"
             {if !$product.add_to_cart_url}
               disabled
             {/if}
           >
-            <i class="material-icons shopping-cart">&#xE547;</i>
-            {l s='Add to cart' d='Shop.Theme.Actions'}
+            {*<i class="material-icons shopping-cart">&#xE547;</i>*}
+            {l s='Add to bag' d='Shop.Theme.Actions'}
           </button>
         </div>
 
