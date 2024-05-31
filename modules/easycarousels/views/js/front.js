@@ -211,8 +211,8 @@ var ec = {
 	getResponsiveParams: function($container, settings, includeLoop) {
 		var itemsData = ec.getItemsData($container, settings),
 			params = {
-				slidesPerView: itemsData.num,
-				slidesPerGroup: settings.m && settings.m < itemsData.num ? settings.m : itemsData.num,
+				slidesPerView: 3.5,
+				slidesPerGroup: settings.m && settings.m < 3.5 ? settings.m : 3.5,
 			};
 		if (includeLoop) {
 			params.loop = settings.l && itemsData.overflow;

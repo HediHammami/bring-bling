@@ -18,7 +18,7 @@
 	{/if}
 	{if !empty($carousel.description)}<div class="carousel-description">{$carousel.description nofilter}{* can not be escaped *}</div>{/if}
 	<div class="block_content">
-		<div class="c_container {if $c_settings.type == 1}ecarousel{if $carousel.is_swiper} swiper{/if}{else if $c_settings.type == 2}scroll-x{else}ec-grid{/if} xl-{$c_settings.i|intval} lg-{$c_settings.i_1200|intval} md-{$c_settings.i_992|intval} sm-{$c_settings.i_768|intval} xs-{$c_settings.i_480|intval}" data-settings="{$c_settings|json_encode|escape:'html':'UTF-8'}"{if !empty($tpl_settings.second_image)} data-second-img="1"{/if}>
+		<div class="c_container {if $c_settings.type == 1}ecarousel{if $carousel.is_swiper} swiper{/if}{else if $c_settings.type == 2}scroll-x{else}ec-grid{/if} xl-3.5 lg-3.5 md-{$c_settings.i_992|intval} sm-{$c_settings.i_768|intval} xs-{$c_settings.i_480|intval}" data-settings="{$c_settings|json_encode|escape:'html':'UTF-8'}"{if !empty($tpl_settings.second_image)} data-second-img="1"{/if}>
 			{if $carousel.is_swiper}<div class="swiper-wrapper">{/if}
 			{foreach $carousel.items as $column_items}
 				<div class="c_col{if $carousel.is_swiper} swiper-slide{/if}">

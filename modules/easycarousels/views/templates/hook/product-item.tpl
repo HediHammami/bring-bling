@@ -17,7 +17,7 @@
         {$img_type = $settings.image_type}
         <a href="{$product.url}" class="thumbnail product-thumbnail">
             {if $product.cover}
-                <img src="{$product.cover.bySize.$img_type.url}" alt="{$product.cover.legend}"{if !empty($image_sizes[$img_type])} width="{$image_sizes[$img_type]['width']}" height="{$image_sizes[$img_type]['height']}"{/if}{if !empty($product.second_img_src)} data-toggle-src="{$product.second_img_src}"{/if} loading="lazy">
+                <img src="{$product.cover.bySize.large_default.url}" alt="{$product.cover.legend}"{if !empty($image_sizes[$img_type])} width="{$image_sizes[$img_type]['width']}" height="{$image_sizes[$img_type]['height']}"{/if}{if !empty($product.second_img_src)} data-toggle-src="{$product.second_img_src}"{/if} loading="lazy">
             {else if isset($urls.no_picture_image)}
                 <img src="{$urls.no_picture_image.bySize.$img_type.url}"{if !empty($image_sizes[$img_type])} width="{$image_sizes[$img_type]['width']}" height="{$image_sizes[$img_type]['height']}"{/if} loading="lazy">
             {/if}
@@ -34,15 +34,7 @@
     {block name='product_variants'}{* can be optionally filled in extended file *}{/block}
     {block name='product_informations'}
     <div class="product-description">
-        {block name='product_title'}
-        {if !empty($settings.title)}
-            <h5 class="product-title">
-                <a href="{$product.url}"{if !empty($settings.title_one_line)} class="nowrap"{/if}>
-                    {$product.name|truncate:$settings.title:'...'}
-                </a>
-            </h5>
-        {/if}
-        {/block}
+   
         {block name='product_other_fields'}
         {if !empty($settings.reference)}
             <div class="prop-line product-reference"><span class="nowrap">{$product.reference}</span></div>
@@ -64,6 +56,15 @@
                 </a>
             </div>
         {/if}
+             {block name='product_title'}
+        {if !empty($settings.title)}
+            <h5 class="product-title">
+                <a href="{$product.url}"{if !empty($settings.title_one_line)} class="nowrap"{/if}>
+                    {$product.name|truncate:$settings.title:'...'}
+                </a>
+            </h5>
+        {/if}
+        {/block}
         {if !empty($settings.description)}
             <div class="prop-line product-description-short">
                 {$product.description_short|strip_tags:'UTF-8'|truncate:$settings.description:'...'}
@@ -78,6 +79,7 @@
         {block name='product_price'}
         {if $settings.price && $product.show_price}
             <div class="product-price-and-shipping">
+            <span class="price">{$product.price}</span>
                 {if $product.has_discount}
                     {if $settings.displayProductPriceBlock}
                         {hook h='displayProductPriceBlock' product=$product type="old_price"}
@@ -87,7 +89,7 @@
                 {if $settings.displayProductPriceBlock}
                     {hook h='displayProductPriceBlock' product=$product type="before_price"}
                 {/if}
-                <span class="price">{$product.price}</span>
+                
                 {if $settings.displayProductPriceBlock}
                     {hook h='displayProductPriceBlock' product=$product type='unit_price'}
                     {hook h='displayProductPriceBlock' product=$product type='weight'}
