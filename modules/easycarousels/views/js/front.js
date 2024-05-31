@@ -209,11 +209,18 @@ var ec = {
 		return params;
 	},
 	getResponsiveParams: function($container, settings, includeLoop) {
-		var itemsData = ec.getItemsData($container, settings),
-			params = {
-				slidesPerView: 3.5,
-				slidesPerGroup: settings.m && settings.m < 3.5 ? settings.m : 3.5,
-			};
+		// var itemsData = ec.getItemsData($container, settings),
+		var itemsData = {num : 3.5}
+		var settings = {m:2}
+		if (window.innerWidth < 768) { //breakpoint for mobile
+			itemsData.num = 2;
+		  } else {
+			itemsData.num = 3.5;
+		  }
+		  params = {
+			slidesPerView: itemsData.num,
+			slidesPerGroup: settings.m && settings.m < itemsData.num ? settings.m : itemsData.num,
+		  };
 		if (includeLoop) {
 			params.loop = settings.l && itemsData.overflow;
 		}
