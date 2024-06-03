@@ -146,11 +146,9 @@
             },
             iconName: function (e) {
               if (void 0 === e) return this.options.iconName;
-              this.$elementFilestyle
-                .find(".icon-span-filestyle")
-                .attr({
-                  class: "icon-span-filestyle " + this.options.iconName,
-                });
+              this.$elementFilestyle.find(".icon-span-filestyle").attr({
+                class: "icon-span-filestyle " + this.options.iconName,
+              });
             },
             htmlIcon: function () {
               return this.options.icon
@@ -10296,17 +10294,15 @@
                                 "1"
                               ));
                         }),
-                    n
-                      .find(t().selectors.quantityWanted)
-                      .TouchSpin({
-                        verticalbuttons: !0,
-                        verticalupclass: "material-icons touchspin-up",
-                        verticaldownclass: "material-icons touchspin-down",
-                        buttondown_class: "btn btn-touchspin js-touchspin",
-                        buttonup_class: "btn btn-touchspin js-touchspin",
-                        min: 1,
-                        max: 1e6,
-                      }),
+                    n.find(t().selectors.quantityWanted).TouchSpin({
+                      verticalbuttons: !0,
+                      verticalupclass: "material-icons touchspin-up",
+                      verticaldownclass: "material-icons touchspin-down",
+                      buttondown_class: "btn btn-touchspin js-touchspin",
+                      buttonup_class: "btn btn-touchspin js-touchspin",
+                      min: 1,
+                      max: 1e6,
+                    }),
                     i()(t().themeSelectors.touchspin).off(
                       "touchstart.touchspin"
                     );
@@ -11351,11 +11347,10 @@
     })();
 })();
 
-
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener("DOMContentLoaded", (event) => {
   var acc = document.getElementsByClassName("accordion");
   for (var i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
+    acc[i].addEventListener("click", function () {
       this.classList.toggle("active");
       var panel = this.nextElementSibling;
       if (panel.style.maxHeight) {
@@ -11365,4 +11360,79 @@ document.addEventListener('DOMContentLoaded', (event) => {
       }
     });
   }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  var cartToggleBtn = document.getElementById("cartToggleBtn");
+  var offcanvasCart = document.getElementById("offcanvasCart");
+  var closeOffcanvasBtn = document.getElementById("closeOffcanvasBtn");
+
+  cartToggleBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    offcanvasCart.classList.toggle("open");
+  });
+
+  closeOffcanvasBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    offcanvasCart.classList.remove("open");
+  });
+
+  document.addEventListener("click", function (event) {
+    if (
+      !offcanvasCart.contains(event.target) &&
+      event.target !== cartToggleBtn
+    ) {
+      offcanvasCart.classList.remove("open");
+    }
+  });
+});
+
+//model js
+document.addEventListener("DOMContentLoaded", function () {
+  var deleteButtons = document.querySelectorAll(".remove-from-cart");
+  var modal = document.getElementById("deleteConfirmationModal");
+  var cancelDelete = document.getElementById("cancelDelete");
+  var confirmDelete = document.getElementById("confirmDelete");
+  var addToWishlist = document.getElementById("addToWishlist");
+  var currentProduct = null;
+
+  // event listeners to all delete buttons
+  deleteButtons.forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      event.preventDefault(); 
+      currentProduct = this; 
+      modal.style.display = "block"; 
+    });
+  });
+
+  // cancel button click
+  cancelDelete.addEventListener("click", function () {
+    modal.style.display = "none"; 
+  });
+
+  // confirm delete button click
+  confirmDelete.addEventListener("click", function () {
+    if (currentProduct) {
+      var href = currentProduct.getAttribute("href"); // Get the delete URL
+      window.location.href = href; // Redirect to the delete URL
+    }
+    modal.style.display = "none";
+  });
+
+  // Handle add to wishlist button click
+  addToWishlist.addEventListener("click", function () {
+    if (currentProduct) {
+      console.log(
+        "Add to wishlist:",
+        currentProduct.getAttribute("data-id-product")
+      );
+    }
+    modal.style.display = "none"; 
+  });
+
+  window.addEventListener("click", function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  });
 });
