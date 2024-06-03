@@ -194,7 +194,7 @@
               class                       = "remove-from-cart"
               rel                         = "nofollow"
               href                        = "{$product.remove_from_cart_url}"
-              data-link-action            = "delete-from-cart"
+              
               data-id-product             = "{$product.id_product|escape:'javascript'}"
               data-id-product-attribute   = "{$product.id_product_attribute|escape:'javascript'}"
               data-id-customization       = "{$product.id_customization|default|escape:'javascript'}"
@@ -203,6 +203,21 @@
               <i class="material-icons float-xs-left">delete</i>
             {/if}
           </a>
+                     
+            <!-- Modal Structure -->
+<div id="deleteConfirmationModal" class="delete-modal">
+  <div class="delete-modal-content">
+    <h4>Confirm Deletion</h4>
+    <p>Are you sure you want to delete this product?</p>
+  </div>
+  <div class="delete-modal-footer">
+    <button id="cancelDelete" class="btnn">Cancel</button>
+    <button id="confirmDelete" class="btn btnn-danger">Remove</button>
+    <button id="addToWishlist" class="btn btnn-secondary">Add to Wishlist</button>
+  </div>
+</div>
+
+             
 
           {block name='hook_cart_extra_product_actions'}
             {hook h='displayCartExtraProductActions' product=$product}
