@@ -25,6 +25,7 @@
 {block name='header_banner'}
   <div class="header-banner">
     {hook h='displayBanner'}
+    <p class="header-banner-text">Free worldwide shipping and free returns </p>
   </div>
 {/block}
 
@@ -34,7 +35,12 @@
       <div class="row">
         <div class="hidden-sm-down">
           <div class="col-md-5 col-xs-12">
-            {hook h='displayNav1'}
+            {hook h='displayNav1'} 
+            <div class="cats">
+             <h3> Men </h3> 
+              <h3> Women </h3> 
+               <h3> kid </h3> 
+             </div>
           </div>
           <div class="col-md-7 right-nav">
               {hook h='displayNav2'}
@@ -44,7 +50,8 @@
           <div class="float-xs-left" id="menu-icon">
             <i class="material-icons d-inline">&#xE5D2;</i>
           </div>
-          <div class="float-xs-right" id="_mobile_cart"></div>
+          <div class="float-xs-right" id="_mobile_cart">
+          </div>
           <div class="float-xs-right" id="_mobile_user_info"></div>
           <div class="top-logo" id="_mobile_logo"></div>
           <div class="clearfix"></div>
@@ -55,22 +62,35 @@
 {/block}
 
 {block name='header_top'}
+<header id="header">
   <div class="header-top">
     <div class="container">
-       <div class="row">
-        <div class="col-md-2 hidden-sm-down" id="_desktop_logo">
-          {if $shop.logo_details}
-            {if $page.page_name == 'index'}
-              <h1>
-                {renderLogo}
-              </h1>
-            {else}
-              {renderLogo}
-            {/if}
-          {/if}
-        </div>
-        <div class="header-top-right col-md-10 col-sm-12 position-static">
+      <div class="row">
+        <!-- Logo on the left -->
+       <div class="col-md-2 hidden-sm-down" id="_desktop_logo">
+  {if $shop.logo_details}
+    {if $page.page_name == 'index'}
+      <h1>
+        <a class="myLogo" href="{$urls.pages.index}" title="{$shop.name}">
+          bring bling
+        </a>
+      </h1>
+    {else}
+      <a class="myLogo" href="{$urls.pages.index}" title="{$shop.name}">
+        bring bling
+      </a>
+    {/if}
+  {/if}
+</div>
+
+        <!-- Menu in the center -->
+        <div class="col-md-8 col-sm-12 position-static">
           {hook h='displayTop'}
+        </div>
+
+        <!-- Icons on the right -->
+        <div class="col-md-2 col-sm-12 header-icons">
+          {hook h='displayCustomIcons'}
         </div>
       </div>
       <div id="mobile_top_menu_wrapper" class="row hidden-md-up" style="display:none;">
@@ -84,6 +104,8 @@
     </div>
   </div>
   {hook h='displayNavFullWidth'}
+</header>
+
 {/block}
 
 
